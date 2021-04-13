@@ -8,6 +8,7 @@ import io.ktor.application.*
 import io.ktor.jackson.*
 import io.ktor.response.*
 import io.ktor.request.*
+import com.example.entities.User
 
 fun Application.configureRouting() {
     install(AutoHeadResponse)
@@ -19,8 +20,14 @@ fun Application.configureRouting() {
     }
 
     routing {
-        get("/api") {
-            call.respond(mapOf("hello" to "world"))
+        route("/api") {
+            route("/v1") {
+                route("users") {
+                    get {
+                        call.respond(User("testtest","hogehoge", "hinoatarusakamichi@gmail.com"))
+                    }
+                }
+            }
         }
     }
 }
